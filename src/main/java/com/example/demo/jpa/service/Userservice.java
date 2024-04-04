@@ -3,12 +3,9 @@ package com.example.demo.jpa.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.jpa.entity.User;
 import com.example.demo.jpa.repository.Userrepository;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -34,18 +31,15 @@ public class Userservice {
 	
 		// Update
 	@Transactional
-	public User UpdatedUser(Long id, String username, String password, String email, int age) {
+	public User UpdatedUser(String email, String username, String password, int age) {
 		
-		User user = userrepository.getReferenceById(id);
+		User user = userrepository.findByEmail(email);
 		
 		 if (username != null) {
 			 user.setUsername(username);
 	        }
 		 if (password != null) {
 			 user.setPassword(password);
-		 }
-		 if (email != null) {
-			 user.setEmail(email);
 		 }
 		 if (age > 0) {
 			 user.setAge(age);;
@@ -62,8 +56,8 @@ public class Userservice {
 	}
 	
 		// Search by name
-	public List<User> findByNameUser(String username) {
-		List<User> users = userrepository.findByUsernameContaining(username);
+	public List<User> findByUsernameContainingIgnoreCase(String username) {
+		List<User> users = userrepository.findByUsernameContainingIgnoreCase(username);
 		return users;
 	}
 	

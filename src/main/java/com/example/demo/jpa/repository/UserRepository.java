@@ -10,6 +10,6 @@ import com.example.demo.jpa.entity.User;
 public interface Userrepository extends JpaRepository<User, Long> {
 	User findByEmail(String email);
 	User findByUsername(String username);
-	List<User> findByUsernameContaining(String username);
+	List<User> findByUsernameContainingIgnoreCase(String username);
 	
 }
